@@ -7,7 +7,7 @@ height = gets.chomp.to_i
 perfect_weight = height - 110
 
 if perfect_weight <= 0
-    puts "#{name}, у вас идеальный вес"
+  puts "#{name}, у вас идеальный вес"
 elsif
-    puts "#{name}, идеальный вес для вас - #{perfect_weight}кг"
+  puts "#{name}, идеальный вес для вас - #{perfect_weight}кг"
 end
