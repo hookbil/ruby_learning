@@ -6,3 +6,4 @@ for i in (10..100)
 end
 
 puts array
+

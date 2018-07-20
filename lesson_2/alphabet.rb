@@ -5,9 +5,9 @@ i = 0
 alphabet.each do |key|
 
   i = i + 1
-  vowel = [1,5,9,15,21,25]
+  vowel = ['a','e','i','o','u','y']
 
-  if vowel.include?(i)
+  if vowel.include?(key)
     hash[key] = i
   end
 

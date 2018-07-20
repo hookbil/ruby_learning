@@ -1,7 +1,7 @@
 @goods = {}
 @shopping_cart = 0.0
 
-def add_product
+def products
     
     
   hash = {}
@@ -17,6 +17,7 @@ def add_product
   puts "Введите цену товара"
   @price = gets.chomp.to_f
   hash['Цена'] = @price
+  
   puts "Введите количество товара: "
   @quantity = gets.chomp.to_f
   hash['Количество'] = @quantity
@@ -31,5 +32,5 @@ end
 
 
 loop do    
-  add_product    
+  products    
 end
