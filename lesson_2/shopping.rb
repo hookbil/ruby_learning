@@ -6,12 +6,12 @@ def add_product
     
   hash = {}
   puts "Введите название товара (введите \"стоп\"\, чтобы отобразить результат)"
-    @product = gets.chomp.capitalize
-    if @product == "Стоп"
-      puts @goods
-      puts "Итого: #{@shopping_cart}"
-      exit
-    end
+  @product = gets.chomp.capitalize
+  if @product == "Стоп"
+    puts @goods
+    puts "Итого: #{@shopping_cart}"
+    exit
+  end
 
 
   puts "Введите цену товара"
