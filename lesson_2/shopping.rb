@@ -1,36 +1,41 @@
 @goods = {}
 @shopping_cart = 0.0
 
-def products
-    
-    
-  hash = {}
-  puts "Введите название товара (введите \"стоп\"\, чтобы отобразить результат)"
-  @product = gets.chomp.capitalize
-  if @product == "Стоп"
-    puts @goods
-    puts "Итого: #{@shopping_cart}"
-    exit
-  end
-
-
-  puts "Введите цену товара"
-  @price = gets.chomp.to_f
-  hash['Цена'] = @price
+def add_products(product,price,quantity)
   
-  puts "Введите количество товара: "
-  @quantity = gets.chomp.to_f
-  hash['Количество'] = @quantity
-    
-  amount = @price * @quantity
+  hash = {}
+  hash['Цена'] = price
+  hash['Количество'] = quantity
+  amount = price * quantity
   hash['Итог'] = amount
-
-  @goods[@product] = hash
-  @shopping_cart = @shopping_cart + @goods[@product]["Итог"]
+  @goods[product] = hash
     
 end
 
+def calculate_price(amount)
+
+  @shopping_cart = @shopping_cart + amount
+
+end
 
 loop do    
-  products    
+  
+  puts "Введите название товара (введите stop\, чтобы отобразить результат)"
+  product = gets.chomp
+  if product == "stop"
+    puts @goods
+    puts "Итого: #{@shopping_cart}"
+    return
+  end
+
+  puts "Введите цену товара"
+  price = gets.chomp.to_f
+
+  puts "Введите количество товара: "
+  quantity = gets.chomp.to_f
+  
+  add_products(product, price, quantity)
+  amount = @goods[product]["Итог"]
+  calculate_price(amount)
+
 end

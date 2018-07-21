@@ -1,14 +1,12 @@
 alphabet = ('a'..'z').to_a
 hash = {}
 i = 0
-
-alphabet.each do |key|
+vowels = ['a','e','i','o','u','y']
+alphabet.each do |char|
 
   i = i + 1
-  vowel = ['a','e','i','o','u','y']
-
-  if vowel.include?(key)
-    hash[key] = i
+  if vowels.include?(char)
+    hash[char] = i
   end
 
 end
