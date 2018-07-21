@@ -12,7 +12,7 @@ month = gets.chomp.to_i
 print "Enter year: "
 year = gets.chomp.to_i
 
-if year % 400 == 0 || year % 4 == 0
+if year % 4 == 0 && year % 100 != 0 || year % 400 == 0 
   months[1] = 29
 end
 
