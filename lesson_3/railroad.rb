@@ -7,12 +7,10 @@ class Station
 
   def take_train(train)
     @trains.push(train)
-  
   end
 
   def type_of_trains(type)
     @trains.select { |train| train.type == type}
-
   end
 
   def send_train(train)
@@ -28,8 +26,7 @@ class Route
     @first_station = first_station
     @last_station = last_station
     @route = []
-    @route.push(@first_station).push(@last_station)
-    
+    @route.push(@first_station).push(@last_station)    
   end
 
   def add_way_station(way_station)
@@ -40,8 +37,7 @@ class Route
     allow_stations = @route.slice(1...-1)
     if allow_stations.include?way_station
       @route.delete(way_station)
-    end
-    
+    end    
   end
 
   def first_station
@@ -93,17 +89,14 @@ class Train
 
   def go_next
     current_station.send_train(self)
-    next_station.take_train(self)
-    
+    next_station.take_train(self)    
     @index_station += 1
-
   end
 
   def go_to_previous
     current_station.send_train(self)
     previous_station.take_train(self)
     @index_station -= 1
-
   end
 
   def current_station
