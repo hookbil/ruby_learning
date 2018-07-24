@@ -21,31 +21,28 @@ end
 
 
 class Route 
-  attr_reader :route, :first_station, :last_station
+  attr_reader :stations, :first_station, :last_station
   def initialize(first_station, last_station)
-    @first_station = first_station
-    @last_station = last_station
-    @route = []
-    @route.push(@first_station).push(@last_station)    
+    @stations = [first_station, last_station] 
   end
 
   def add_way_station(way_station)
-    @route.insert(-2,way_station)
+    @stations.insert(-2,way_station)
   end
 
   def delete_way_station(way_station)
-    allow_stations = @route.slice(1...-1)
-    if allow_stations.include?way_station
-      @route.delete(way_station)
+    allow_stations = @stations.slice(1...-1)
+    if allow_stations.include?(way_station)
+      @stations.delete(way_station)
     end    
   end
 
   def first_station
-    @route.first
+    @stations.first
   end
 
   def last_station
-    @route.last
+    @stations.last
   end
 
 end
@@ -68,19 +65,17 @@ class Train
     self.speed = 0 
   end
 
-
-  def car(action)
+  def add_car
     if @speed == 0
-      if action == "add"
-        @cars += 1
-      else
-        if @cars >= 1
-          @cars -= 1
-        end
-      end
+      @cars += 1
     end
   end
 
+  def delete_car
+    if @speed == 0 && @cars > 0
+      @cars -= 1
+    end
+  end
   def add_route(route)
     @route = route
     route.first_station.take_train(self) #почему-то без self не передаётся. Надо выяснить.
@@ -88,27 +83,35 @@ class Train
   end
 
   def go_next
-    current_station.send_train(self)
-    next_station.take_train(self)    
-    @index_station += 1
+    if next_station != nil
+      current_station.send_train(self)
+      next_station.take_train(self)    
+      @index_station += 1
+    else
+      puts "Это последняя станция"
+    end
   end
 
-  def go_to_previous
-    current_station.send_train(self)
-    previous_station.take_train(self)
-    @index_station -= 1
+  def go_previous
+    if previous_station != nil
+      current_station.send_train(self)
+      previous_station.take_train(self)
+      @index_station -= 1
+    else
+      puts "Это первая станция"
+    end
   end
 
   def current_station
-    route.route[@index_station] # получаем индекс текущей станции. Если только создали поезд, должен быть равен 0.
+    route.stations[@index_station] # получаем индекс текущей станции. Если только создали поезд, должен быть равен 0.
   end
 
   def next_station
-    route.route[@index_station + 1] unless @index_station == route.route.size - 1
+    route.stations[@index_station + 1] unless @index_station == route.stations.size - 1
   end
   
   def previous_station
-    route.route[@index_station - 1] unless @index_station == route.route.size 
+    route.stations[@index_station - 1] unless @index_station == route.stations.size 
   end
 
   def show_stations
