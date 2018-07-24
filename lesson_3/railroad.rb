@@ -111,7 +111,7 @@ class Train
   end
   
   def previous_station
-    route.stations[@index_station - 1] unless @index_station == route.stations.size 
+    route.stations[@index_station - 1] unless @index_station == 0
   end
 
   def show_stations
