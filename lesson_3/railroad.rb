@@ -103,15 +103,20 @@ class Train
   end
 
   def current_station
-    route.stations[@index_station] # получаем индекс текущей станции. Если только создали поезд, должен быть равен 0.
+    if @index_station != nil
+      route.stations[@index_station] # получаем индекс текущей станции. Если только создали поезд, должен быть равен 0.  
+    end
   end
-
   def next_station
-    route.stations[@index_station + 1] unless @index_station == route.stations.size - 1
+    if @index_station != nil
+      route.stations[@index_station + 1] unless @index_station == route.stations.size - 1
+    end
   end
   
   def previous_station
-    route.stations[@index_station - 1] unless @index_station == 0
+    if @index_station != nil
+      route.stations[@index_station - 1] unless @index_station == 0
+    end
   end
 
   def show_stations
