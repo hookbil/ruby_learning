@@ -33,14 +33,6 @@ class Menu
     @trains.push(train)
   end
 
-  def print_stations
-    i = 0
-    @stations.each do |station|
-      i += 1
-      puts "#{i}. #{station.station_name}"
-    end
-  end
-
   def stations_info
     i = 0
     if @stations.empty?
@@ -50,43 +42,6 @@ class Menu
     @stations.each do |station|
       i += 1
       puts "#{i}. #{station.station_name}. Поезда: #{station.trains}"
-    end
-  end
-
-  def print_free_stations
-    i = 0
-    @free_stations.each do |station|
-      i += 1
-      puts "#{i}. #{station.station_name}"
-    end
-  end
-
-  def print_routes
-    i = 0
-    @routes.each do |route|
-      i += 1
-      puts "#{i}. Откуда: #{route.stations.first.station_name}, куда: #{route.stations.last.station_name}"
-    end
-  end
-
-  def print_trains
-    i = 0
-    @trains.each do |train|
-      i += 1
-      puts "#{i}. Номер: #{train.number}, тип: #{train.type}"
-      if train.route != nil
-        puts "Откуда: #{train.route.stations.first.station_name}, куда: #{train.route.stations.last.station_name}"
-      end
-    end
-  end
-
-  def train_travel
-    i = 0
-    @trains.each do |train|
-      i += 1
-      unless train.route.empty?
-        puts "#{i}. Откуда: #{train.route.stations.first.station_name}, куда: #{train.route.stations.last.station_name}"
-      end
     end
   end
 
@@ -224,4 +179,40 @@ class Menu
       return
     end
   end
+  private #Методы ниже нужны только для работы других методов класса. 
+  def print_stations
+    i = 0
+    @stations.each do |station|
+      i += 1
+      puts "#{i}. #{station.station_name}"
+    end
+  end
+
+  def print_routes
+    i = 0
+    @routes.each do |route|
+      i += 1
+      puts "#{i}. Откуда: #{route.stations.first.station_name}, куда: #{route.stations.last.station_name}"
+    end
+  end
+
+  def print_trains
+    i = 0
+    @trains.each do |train|
+      i += 1
+      puts "#{i}. Номер: #{train.number}, тип: #{train.type}"
+      if train.route != nil
+        puts "Откуда: #{train.route.stations.first.station_name}, куда: #{train.route.stations.last.station_name}"
+      end
+    end
+  end
+
+  def print_free_stations
+    i = 0
+    @free_stations.each do |station|
+      i += 1
+      puts "#{i}. #{station.station_name}"
+    end
+  end
+
 end
