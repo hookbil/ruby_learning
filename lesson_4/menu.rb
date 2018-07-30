@@ -1,11 +1,14 @@
 class Menu
+
   attr_accessor :stations, :routes, :trains, :free_stations
+
   def initialize
     @stations = []
     @routes = []
     @trains = []
     @free_stations= []
   end
+
   def add_station
     puts "Введите название станции: "
     station_name = gets.chomp.capitalize
@@ -127,7 +130,6 @@ class Menu
     route_number = gets.chomp.to_i - 1
     route = @routes[route_number]
     train.add_route(route)
-
   end
 
   def wagon
@@ -151,8 +153,7 @@ class Menu
         puts "Вагон был удалён"
       else
         puts "Что-то пошло не так."
-      end
-    
+      end    
   end
 
   def train_go
@@ -179,7 +180,9 @@ class Menu
       return
     end
   end
+
   private #Методы ниже нужны только для работы других методов класса. 
+  
   def print_stations
     i = 0
     @stations.each do |station|
@@ -214,5 +217,4 @@ class Menu
       puts "#{i}. #{station.station_name}"
     end
   end
-
 end

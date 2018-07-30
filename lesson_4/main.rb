@@ -5,7 +5,9 @@ require_relative 'PassengerTrain'
 require_relative 'CargoTrain'
 require_relative 'Wagon'
 require_relative 'menu'
+
 menu = Menu.new
+
 loop do
   puts ""
   puts "Что вы хотите сделать?"
@@ -35,9 +37,7 @@ loop do
     menu.train_go
   when 8
     menu.stations_info
-
   when 0
     return
   end
-
 end
