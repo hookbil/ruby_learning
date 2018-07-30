@@ -1,9 +1,9 @@
 require_relative 'train'
 require_relative 'station'
 require_relative 'route'
-require_relative 'PassengerTrain'
-require_relative 'CargoTrain'
-require_relative 'Wagon'
+require_relative 'passenger_Train'
+require_relative 'cargo_train'
+require_relative 'wagon'
 require_relative 'menu'
 
 menu = Menu.new

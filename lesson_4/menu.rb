@@ -1,12 +1,12 @@
 class Menu
 
-  attr_accessor :stations, :routes, :trains, :free_stations
+  attr_accessor :stations, :routes, :trains
 
   def initialize
     @stations = []
     @routes = []
     @trains = []
-    @free_stations= []
+    @wagons = []
   end
 
   def add_station
@@ -14,7 +14,6 @@ class Menu
     station_name = gets.chomp.capitalize
     station = Station.new(station_name)
     @stations.push(station)
-    @free_stations.push(station)
   end
 
   def add_train
@@ -64,8 +63,6 @@ class Menu
       else        
         route = Route.new(station_first,station_last)
         @routes.push(route)
-        @free_stations.delete_at(first_station_number)
-        @free_stations.delete_at(last_station_number - 1)
       end
     end
   end
@@ -83,32 +80,9 @@ class Menu
     choice = gets.chomp.to_i
     case choice
     when 1
-      if @free_stations.empty?
-        puts "Нет свободных станций. Запуск создания новой станции."
-        add_station
-      else
-        puts "Выберите номер станции: "
-        print_free_stations
-        station_number = gets.chomp.to_i - 1
-        free_station = @free_stations[station_number]
-        route.add_way_station(free_station)
-        @free_stations.delete_at(station_number)
-      end
+      add_station_to_route(route)
     when 2
-      allow_stations = route.stations.slice(1...-1)
-      if allow_stations.empty?
-        puts "Нечего удалять."
-      else
-        puts "Выберите номер станции: "
-        i = 0
-        allow_stations.each do |station|
-          i += 1
-          puts "#{i}. #{station.station_name}"
-        end
-        station_number_to_delete = gets.chomp.to_i
-        station_to_delete = route.stations[station_number_to_delete]
-        route.delete_way_station(station_to_delete)
-      end
+      delete_station_from_route(route)      
     end
   end
 
@@ -144,13 +118,9 @@ class Menu
       puts "1. Добавить 2. Удалить"
       wagon = gets.chomp.to_i
       if wagon == 1
-        wagon = Wagon.new(train.type)
-        train.add_wagon(wagon)
-        puts "Вагон был добавлен"
+        add_wagon(train)
       elsif wagon == 2 && train.wagons.count > 0
-        wagon = train.wagons
-        wagon.delete_at(-1)
-        puts "Вагон был удалён"
+        delete_wagon(train)
       else
         puts "Что-то пошло не так."
       end    
@@ -182,7 +152,53 @@ class Menu
   end
 
   private #Методы ниже нужны только для работы других методов класса. 
-  
+
+  def add_wagon(train)
+    wagon = Wagon.new(train.type)
+    train.add_wagon(wagon)
+    @wagons.push(wagon)
+    puts "Вагон добавлен"
+  end
+
+  def delete_wagon(train)
+    wagon = train.wagons
+    wagon.delete_at(-1)
+    puts "Вагон удалён"
+  end
+
+  def add_station_to_route(route)
+    puts "Выберите номер станции: "
+    print_stations
+    station_number = gets.chomp.to_i - 1
+    
+    station = @stations[station_number]
+    if route.stations.include? station
+      puts "Данная станция уже есть на маршруте."
+      return
+    end
+    route.add_way_station(station)
+    puts "Станция #{station.station_name} была добавлена."
+
+  end
+
+  def delete_station_from_route(route)
+    allow_stations = route.stations.slice(1...-1)
+    if allow_stations.empty?
+      puts "Нечего удалять."
+    else
+      puts "Выберите номер станции: "
+      i = 0
+      allow_stations.each do |station|
+        i += 1
+        puts "#{i}. #{station.station_name}"
+      end
+    end
+    station_number_to_delete = gets.chomp.to_i
+    station_to_delete = route.stations[station_number_to_delete]
+    route.delete_way_station(station_to_delete)
+    puts "Станция #{station_to_delete.station_name} была удалена."
+  end
+
   def print_stations
     i = 0
     @stations.each do |station|
@@ -210,11 +226,5 @@ class Menu
     end
   end
 
-  def print_free_stations
-    i = 0
-    @free_stations.each do |station|
-      i += 1
-      puts "#{i}. #{station.station_name}"
-    end
-  end
+
 end
