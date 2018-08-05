@@ -1,7 +1,7 @@
 require_relative 'train'
 require_relative 'station'
 require_relative 'route'
-require_relative 'passenger_Train'
+require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'wagon'
 require_relative 'menu'
@@ -19,6 +19,7 @@ loop do
   puts "6. Добавить или удалить вагон"
   puts "7. Отправить поезд по маршруту"
   puts "8. Показать список станций и поезда на них."
+  puts "999. Выход"
   a = gets.chomp.to_i
   case a
   when 1
@@ -37,6 +38,9 @@ loop do
     menu.train_go
   when 8
     menu.stations_info
+
+  when 999
+    exit
   when 0
     return
   end
