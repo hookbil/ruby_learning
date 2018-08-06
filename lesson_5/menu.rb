@@ -36,14 +36,12 @@ class Menu
   end
 
   def stations_info
-    i = 0
     if @stations.empty?
       puts "Станций не найдено."
       return
     end
-    @stations.each do |station|
-      i += 1
-      puts "#{i}. #{station.station_name}. Поезда: #{station.trains}"
+    @stations.each_with_index do |station, index|
+      puts "#{index + 1}. #{station.station_name}. Поезда: #{station.trains}"
     end
   end
 
@@ -187,10 +185,8 @@ class Menu
       puts "Нечего удалять."
     else
       puts "Выберите номер станции: "
-      i = 0
-      allow_stations.each do |station|
-        i += 1
-        puts "#{i}. #{station.station_name}"
+      allow_stations.each_with_index do |station, index|
+        puts "#{index + 1}. #{station.station_name}"
       end
     end
     station_number_to_delete = gets.chomp.to_i
@@ -200,27 +196,21 @@ class Menu
   end
 
   def print_stations
-    i = 0
-    @stations.each do |station|
-      i += 1
-      puts "#{i}. #{station.station_name}"
+    @stations.each_with_index do |station, index|
+      puts "#{index + 1}. #{station.station_name}"
     end
   end
 
   def print_routes
-    i = 0
-    @routes.each do |route|
-      i += 1
-      puts "#{i}. Откуда: #{route.stations.first.station_name}, куда: #{route.stations.last.station_name}"
+    @routes.each_with_index do |route, index|
+      puts "#{index + 1}. Откуда: #{route.stations.first.station_name}, куда: #{route.stations.last.station_name}"
     end
   end
 
   def print_trains
-    i = 0
-    @trains.each do |train|
-      i += 1
-      puts "#{i}. Номер: #{train.number}, тип: #{train.type}"
-      if train.route != nil
+    @trains.each_with_index do |train, index|
+      puts "#{index + 1}. Номер: #{train.number}, тип: #{train.type}"
+      if train.route
         puts "Откуда: #{train.route.stations.first.station_name}, куда: #{train.route.stations.last.station_name}"
       end
     end

@@ -9,7 +9,7 @@ class Station
   end
   def initialize(station_name)
     @station_name = station_name
-    @trains=[]
+    @trains = []
     @@all_stations.push(self)
     add_instance
   end
