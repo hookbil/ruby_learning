@@ -16,8 +16,10 @@ class Menu
     station = Station.new(station_name)
     rescue RuntimeError => error
       puts error
-      return
+      station_name = nil
+      return add_station
     end
+    puts "Станция #{station_name} добавлена."
     @stations.push(station)
   end
 
