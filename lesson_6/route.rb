@@ -29,7 +29,7 @@ class Route
   end
 
   def valid? 
-    valid!
+    validate!
   rescue
     false
   end
@@ -37,10 +37,10 @@ class Route
   protected
 
   def valid!
-    raise "Нет станций" if Station.all.empty?
+    raise "Нет станций" unless last_station.is_a? Station
     raise "Это не объект класса Station" if first_station.class != Station
     raise "Это также не объект класса Station" if last_station.class != Station
-    raise "Мало станций" if Station.all.size < 2  
+    raise "Мало станций" if @stations.size < 2
     true
   end
 end
