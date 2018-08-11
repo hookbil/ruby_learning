@@ -35,28 +35,32 @@ class Train
   end
 
   def go_next
-    if next_station
-      current_station.send_train(self)
-      next_station.take_train(self)    
-      @index_station += 1
-    else
-      puts "Это последняя станция"
-    end
+    current_station.send_train(self)
+    next_station.take_train(self)    
+    @index_station += 1    
   end
 
-  def go_previous
-    if previous_station
-      current_station.send_train(self)
-      previous_station.take_train(self)
-      @index_station -= 1
-    else
-      puts "Это первая станция"
-    end
+  def go_previous    
+    current_station.send_train(self)
+    previous_station.take_train(self)
+    @index_station -= 1
   end
 
   def add_wagon(wagon)
     if wagon.type == @type
       @wagons.push(wagon)
+    end
+  end
+
+  def next_station
+    if @index_station
+      route.stations[@index_station + 1] unless @index_station == route.stations.size - 1
+    end
+  end
+  
+  def previous_station
+    if @index_station
+      route.stations[@index_station - 1] unless @index_station == 0
     end
   end
 
@@ -82,18 +86,4 @@ class Train
       route.stations[@index_station] # получаем индекс текущей станции. Если только создали поезд, должен быть равен 0.  
     end
   end
-
-  def next_station
-    if @index_station
-      route.stations[@index_station + 1] unless @index_station == route.stations.size - 1
-    end
-  end
-  
-  def previous_station
-    if @index_station
-      route.stations[@index_station - 1] unless @index_station == 0
-    end
-  end
-
-
 end

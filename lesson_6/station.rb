@@ -7,11 +7,12 @@ class Station
   def self.all
     @@all_stations
   end
+
   def initialize(station_name)
     @station_name = station_name
     @trains = []
     @@all_stations.push(self)
-    valid!
+    validate!
     add_instance
   end
 
@@ -29,13 +30,13 @@ class Station
   end
 
   def valid? 
-    valid!
+    validate!
   rescue
     false
   end
 
   protected
-  def valid!
+  def validate!
     raise "Название должно быть больше двух символов" if station_name.size < 3
     true
   end

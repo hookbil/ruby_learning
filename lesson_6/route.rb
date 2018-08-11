@@ -3,8 +3,9 @@ class Route
   attr_reader :stations, :first_station, :last_station
 
   def initialize(first_station, last_station)
+    
     @stations = [first_station, last_station]
-    valid! 
+    valid!
     add_instance
   end
 
@@ -36,8 +37,10 @@ class Route
   protected
 
   def valid!
+    raise "Нет станций" if Station.all.empty?
     raise "Это не объект класса Station" if first_station.class != Station
     raise "Это также не объект класса Station" if last_station.class != Station
+    raise "Мало станций" if Station.all.size < 2  
     true
   end
 end

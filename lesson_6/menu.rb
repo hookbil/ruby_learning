@@ -65,24 +65,24 @@ class Menu
     end
   end
 
-  def add_route 
-    if @stations.size < 2
-      puts "Вы не можете добавить маршрут - недостаточно станций"
-    else
-      print_stations
-      print "Выберите номер первой станции: "
-      first_station_number = gets.chomp.to_i - 1
-      station_first = @stations[first_station_number]
-      print "Выберите номер последней станции: "
-      last_station_number = gets.chomp.to_i - 1
-      station_last = @stations[last_station_number]
-      if station_last == station_first
-        puts "Вы выбрали начальную станцию. "
-      else        
-        route = Route.new(station_first,station_last)
-        @routes.push(route)
-      end
+  def add_route
+    print_stations
+    print "Выберите номер первой станции: "
+    first_station_number = gets.chomp.to_i - 1
+    station_first = @stations[first_station_number]
+    print "Выберите номер последней станции: "
+    last_station_number = gets.chomp.to_i - 1
+    station_last = @stations[last_station_number]  
+    begin
+    route = Route.new(station_first,station_last)
+    @routes.push(route)
+    rescue RuntimeError => error
+      puts error
+      first_station_number = nil
+      last_station_number = nil
+      return
     end
+    
   end
 
   def manage_route
@@ -155,9 +155,17 @@ class Menu
     puts "1. Отправить поезд на следующую станцию 2. Отправить поезд на предыдущую станцию"
     answer = gets.chomp.to_i
     if answer == 1
-      train.go_next
+      if train.next_station 
+        train.go_next
+      else
+        puts "Это последняя станция"
+      end
     elsif answer == 2
-      train.go_previous
+      if train.previous_station
+        train.go_previous
+      else
+        puts "Это первая станция"
+      end
     else
       puts "Что-то пошло не так."
       return
@@ -198,6 +206,7 @@ class Menu
     allow_stations = route.stations.slice(1...-1)
     if allow_stations.empty?
       puts "Нечего удалять."
+      return
     else
       puts "Выберите номер станции: "
       allow_stations.each_with_index do |station, index|
