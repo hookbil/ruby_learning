@@ -13,9 +13,7 @@ class PassengerWagon < Wagon
     if @free_seat >= ticket
       @free_seat -=  ticket
       @busy_seat += ticket
-      puts "#{ticket} мест(а) теперь ваши"
-    else
-      puts "В вагоне недостаточно мест для покупки"
+      #puts "#{ticket} мест(а) теперь ваши"
     end
   end
 end

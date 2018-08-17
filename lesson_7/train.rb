@@ -35,7 +35,7 @@ class Train
   end
 
   def each_wagon(&block)
-    @wagons.each {|wagon| yield(wagon)} if @wagons.size > 0
+    @wagons.each {|wagon| yield(wagon)} 
   end
 
   def go_next
@@ -70,17 +70,14 @@ class Train
 
   def self.find(number)
     if @@all_trains.has_key? number
-      puts "Поезд найден -  #{@@all_trains[number]}"
-    else
-      puts "Поезд не найден"
-      return
+      @@all_trains[number]
     end
   end
 
   private # здесь методы, которые нужны только для работы других методов класса. Нет нужды обращаться к ним напрямую. 
 
   def validate!
-    raise "Номер не может быть пустым" if number.nil?
+    raise "Номер не может быть пустым" unless number
     raise "Номер имеет неверный формат" if number !~ VALID_NUMBER    
     true
   end

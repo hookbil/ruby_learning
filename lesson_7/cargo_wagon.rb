@@ -11,8 +11,6 @@ class CargoWagon < Wagon
     if @free_volume >= volume
       @free_volume -= volume
       @occupied_volume += volume
-    else
-      puts "В вагоне не хватает места"
     end
   end 
 

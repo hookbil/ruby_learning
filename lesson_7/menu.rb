@@ -220,11 +220,22 @@ class Menu
           puts "Свободно мест: #{wagon.free_seat}"
           print "Введите количество мест, которые вы хотите занять в вагоне: "
           seats = gets.chomp.to_i
-          wagon.buy_ticket(seats)
+          if wagon.free_seat >= seats
+            wagon.buy_ticket(seats)
+            puts "#{seats} мест(а) теперь ваши"
+          else 
+            puts "В вагоне недостаточно мест"
+          end
         else
+          puts "Свободный объем в вагоне: #{wagon.free_volume}"
           print "Введите объем, который необходимо занять в вагоне: "
           volume = gets.chomp.to_i
-          wagon.load_wagon(volume)
+          if wagon.free_volume >= volume
+            wagon.load_wagon(volume)
+            puts "Вы заняли #{volume} кубометров объема"
+          else
+            puts "В вагоне недостаточно места"
+          end
         end
       else
         puts "У данного поезда нет вагонов"
