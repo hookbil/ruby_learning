@@ -4,8 +4,8 @@ class Train
   attr_reader :speed, :route, :wagons, :number
 
   @@all_trains = {}
-  VALID_NUMBER = /^[a-z1-9]{3}-?[a-z1-9]{2}$/i 
-  
+  VALID_NUMBER = /^[a-z1-9]{3}-?[a-z1-9]{2}$/i
+
   def initialize(number)
     @number = number
     @speed = 0
@@ -14,18 +14,19 @@ class Train
     @@all_trains[number] = self
     add_instance
   end
-  
+
   def valid?
     validate!
-  rescue
+  rescue RuntimeError
     false
   end
+
   def accelerate
     @speed += 5
   end
 
   def stop
-    @speed = 0 
+    @speed = 0
   end
 
   def add_route(route)
@@ -35,56 +36,49 @@ class Train
   end
 
   def each_wagon(&block)
-    @wagons.each {|wagon| yield(wagon)} 
+    @wagons.each { |wagon| yield(wagon) }
   end
 
   def go_next
     current_station.send_train(self)
-    next_station.take_train(self)    
-    @index_station += 1    
+    next_station.take_train(self)
+    @index_station += 1
   end
 
-  def go_previous    
+  def go_previous
     current_station.send_train(self)
     previous_station.take_train(self)
     @index_station -= 1
   end
 
   def add_wagon(wagon)
-    if wagon.type == @type
-      @wagons.push(wagon)
-    end
+    return if wagon.type != @type
+    @wagons.push(wagon)
   end
 
   def next_station
-    if @index_station
-      route.stations[@index_station + 1] unless @index_station == route.stations.size - 1
-    end
+    return if @index_station.nil?
+    route.stations[@index_station + 1] unless @index_station == route.stations.size - 1
   end
-  
+
   def previous_station
-    if @index_station
-      route.stations[@index_station - 1] unless @index_station == 0
-    end
+    return if @index_station.nil?
+    route.stations[@index_station - 1] unless @index_station.zero?
   end
 
   def self.find(number)
-    if @@all_trains.has_key? number
-      @@all_trains[number]
-    end
+    return @@all_trains[number] if @@all_trains.key? number
   end
 
-  private # здесь методы, которые нужны только для работы других методов класса. Нет нужды обращаться к ним напрямую. 
+  private # здесь методы, которые нужны только для работы других методов класса
 
   def validate!
-    raise "Номер не может быть пустым" unless number
-    raise "Номер имеет неверный формат" if number !~ VALID_NUMBER    
+    raise 'Номер не может быть пустым' unless number
+    raise 'Номер имеет неверный формат' if number !~ VALID_NUMBER
     true
   end
 
   def current_station
-    if @index_station
-      route.stations[@index_station] # получаем индекс текущей станции. Если только создали поезд, должен быть равен 0.  
-    end
+    return route.stations[@index_station] if @index_station
   end
 end

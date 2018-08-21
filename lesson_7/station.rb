@@ -3,7 +3,6 @@ class Station
   attr_reader :trains, :station_name
 
   @@all_stations = []
-  
   def self.all
     @@all_stations
   end
@@ -16,13 +15,12 @@ class Station
     add_instance
   end
 
-
   def take_train(train)
     @trains.push(train)
   end
 
   def type_of_trains(type)
-    @trains.select { |train| train.type == type}
+    @trains.select { |train| train.type == type }
   end
 
   def send_train(train)
@@ -30,20 +28,19 @@ class Station
   end
 
   def each_train(&block)
-    @trains.each { |train| yield(train)} if @trains.size > 0
+    @trains.each { |train| yield(train) } unless @trains.empty?
   end
 
-  def valid? 
+  def valid?
     validate!
-  rescue
+  rescue RuntimeError
     false
   end
 
   protected
+
   def validate!
-    raise "Название должно быть больше двух символов" if station_name.size < 3
+    raise 'Название должно быть больше двух символов' if station_name.size < 3
     true
   end
 end
-  
-  

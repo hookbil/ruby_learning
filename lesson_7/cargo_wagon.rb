@@ -8,10 +8,8 @@ class CargoWagon < Wagon
   end
 
   def load_wagon(volume)
-    if @free_volume >= volume
-      @free_volume -= volume
-      @occupied_volume += volume
-    end
-  end 
-
+    return if volume > @free_volume
+    @free_volume -= volume
+    @occupied_volume += volume
+  end
 end
