@@ -57,7 +57,10 @@ class Menu
   end
 
   def stations_info
-    return puts 'Станций не найдено' if @stations.empty?
+    if @stations.empty?
+      puts 'Станций не найдено.'
+      return
+    end
     @stations.each_with_index do |station, index|
       puts "#{index + 1}. #{station.station_name}. Поезда: #{station.trains}"
     end
@@ -81,7 +84,10 @@ class Menu
   end
 
   def manage_route
-    return puts 'Добавьте маршрут' if @routes.empty?
+    if @routes.empty?
+      puts 'Добавьте маршрут'
+      return
+    end
     print_routes
     route_number = gets.chomp.to_i - 1
     route = @routes[route_number]
@@ -96,8 +102,14 @@ class Menu
   end
 
   def train_route
-    return puts 'Нет поездов' if @trains.empty?
-    return puts 'Нет маршрутов' if @routes.empty?
+    if @trains.empty?
+      puts 'Нет поездов'
+      return
+    end
+    if @routes.empty?
+      puts 'Нет маршрутов'
+      return
+    end
     print_trains
     train_number = gets.chomp.to_i - 1
     train = @trains[train_number]
@@ -108,7 +120,10 @@ class Menu
   end
 
   def wagon
-    return puts 'Сначала добавьте поезд' if @trains.count.zero?
+    if @trains.count.zero?
+      puts 'Сначала добавьте поезд'
+      return
+    end
     print_trains
     train_number = gets.chomp.to_i - 1
     train = @trains[train_number]
@@ -132,11 +147,17 @@ class Menu
     puts '1. Отправить поезд на следующую станцию 2. Отправить поезд на предыдущую станцию'
     answer = gets.chomp.to_i
     if answer == 1
-      return puts 'Это последняя станция' if train.next_station.nil?
-      train.go_next
+      if train.next_station
+        train.go_next
+      else
+        puts 'Это последняя станция'
+      end
     elsif answer == 2
-      return puts 'Это первая станция' if train.previous_station.nil?
-      train.go_previous
+      if train.previous_station
+        train.go_previous
+      else
+        puts 'Это первая станция'
+      end
     else
       puts 'Что-то пошло не так.'
       return
