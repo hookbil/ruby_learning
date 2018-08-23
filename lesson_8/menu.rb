@@ -165,7 +165,7 @@ class Menu
   end
 
   def show_wagons_info
-    return puts 'Нет поездов' if @trains.zero?
+    return puts 'Нет поездов' if @trains.empty?
     print_trains
     train_number = gets.chomp.to_i - 1
     train = @trains[train_number]
@@ -180,7 +180,7 @@ class Menu
   end
 
   def show_trains_info
-    return puts 'Нет станций' if @stations.zero?
+    return puts 'Нет станций' if @stations.empty?
     print_stations
     station_number = gets.chomp.to_i - 1
     station = @stations[station_number]

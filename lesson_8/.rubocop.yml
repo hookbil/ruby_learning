@@ -1,5 +1,8 @@
 Style/Documentation:
   Enabled: false
+
+Style/ClassVars:
+  Enabled: false
   
 Metrics/MethodLength:
   Max: 35
@@ -19,5 +22,5 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Max: 10
 
-Style/ClassVars:
-  Enabled: false
+Metrics/BlockLength:
+  Max: 50
