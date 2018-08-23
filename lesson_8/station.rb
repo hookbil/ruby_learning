@@ -27,7 +27,7 @@ class Station
     @trains.delete(train)
   end
 
-  def each_train(&block)
+  def each_train(&_block)
     @trains.each { |train| yield(train) } unless @trains.empty?
   end
 

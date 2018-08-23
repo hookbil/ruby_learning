@@ -220,7 +220,7 @@ class Menu
     end
   end
 
-  private # Методы ниже нужны только для работы других методов класса.
+  private
 
   def add_wagon(train)
     if train.type == 'passenger'
@@ -297,9 +297,7 @@ class Menu
     puts 'Выберите поезд: '
     @trains.each_with_index do |train, index|
       puts "#{index + 1}. Номер: #{train.number}, тип: #{train.type}"
-      if train.route
-        puts "Откуда: #{train.route.stations.first.station_name}, куда: #{train.route.stations.last.station_name}"
-      end
+      puts "Откуда: #{train.route.stations.first.station_name}, куда: #{train.route.stations.last.station_name}" if train.route
     end
   end
 end

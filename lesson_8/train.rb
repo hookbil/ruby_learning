@@ -3,7 +3,9 @@ class Train
   include InstanceCounter
   attr_reader :speed, :route, :wagons, :number
 
-  @@all_trains = {}
+  def self.all_trains
+    @all_trains = {}
+  end
   VALID_NUMBER = /^[a-z1-9]{3}-?[a-z1-9]{2}$/i
 
   def initialize(number)
@@ -35,7 +37,7 @@ class Train
     @index_station = 0
   end
 
-  def each_wagon(&block)
+  def each_wagon(&_block)
     @wagons.each { |wagon| yield(wagon) }
   end
 
@@ -67,10 +69,10 @@ class Train
   end
 
   def self.find(number)
-    return @@all_trains[number] if @@all_trains.key? number
+    return @all_trains[number] if @all_trains.key? number
   end
 
-  private # здесь методы, которые нужны только для работы других методов класса
+  private
 
   def validate!
     raise 'Номер не может быть пустым' unless number

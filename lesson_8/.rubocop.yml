@@ -1,0 +1,23 @@
+Style/Documentation:
+  Enabled: false
+  
+Metrics/MethodLength:
+  Max: 35
+
+Metrics/LineLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/ClassLength:
+  Max: 500
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Style/ClassVars:
+  Enabled: false
