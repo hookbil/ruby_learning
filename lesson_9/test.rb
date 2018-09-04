@@ -15,6 +15,12 @@ train1 = PassengerTrain.new('12312')
 puts "Параметры поезда верные? #{train1.valid?}"
 
 begin
+  train5 = PassengerTrain.new(nil)
+rescue RuntimeError => error
+  puts error
+end
+
+begin
   train2 = CargoTrain.new(123)
 rescue RuntimeError => error
   puts error
@@ -28,6 +34,8 @@ end
 
 station1 = Station.new('Msk')
 station1.station_name = 'Spb'
+station1.station_name = 'Tver'
+station1.station_name = 'Moscow'
 puts station1.station_name_history
 
 station1.station_type = 'Cargo'
